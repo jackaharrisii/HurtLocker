@@ -16,6 +16,7 @@ public class JerkSON_ParserTest {
         parser = new JerkSON_Parser();
         parser.createObjectArray();
         parser.createAndReturnGroceryList();
+        parser.countUniqueItems();
     }
 
     @After
@@ -61,20 +62,29 @@ public class JerkSON_ParserTest {
     @Test
     public void testCreateAndReturnGroceryList(){
         Assert.assertEquals(24, parser.getGroceryList().size());
-        Assert.assertEquals("Milk", parser.getGroceryList().get(0).getName());
+        Assert.assertEquals("milk", parser.getGroceryList().get(0).getName());
         Assert.assertEquals("3.23", parser.getGroceryList().get(0).getPrice());
-        Assert.assertEquals("Food", parser.getGroceryList().get(0).getType());
+        Assert.assertEquals("food", parser.getGroceryList().get(0).getType());
         Assert.assertEquals("1/25/2016", parser.getGroceryList().get(0).getExpiration());
 
-        Assert.assertEquals("BrEAD", parser.getGroceryList().get(parser.getGroceryList().size()-1).getName());
+        Assert.assertEquals("bread", parser.getGroceryList().get(parser.getGroceryList().size()-1).getName());
         Assert.assertEquals("1.23", parser.getGroceryList().get(parser.getGroceryList().size()-1).getPrice());
-        Assert.assertEquals("Food", parser.getGroceryList().get(parser.getGroceryList().size()-1).getType());
+        Assert.assertEquals("food", parser.getGroceryList().get(parser.getGroceryList().size()-1).getType());
         Assert.assertEquals("1/25/2016", parser.getGroceryList().get(parser.getGroceryList().size()-1).getExpiration());
     }
 
     @Test
     public void countErrorsTest(){
         Assert.assertEquals(4, parser.countErrors());
+    }
+
+    @Test
+    public void countUniqueItemsTest(){
+        // REPLACE ALL INSANCES OF xxxx WITH Xxxx ONCE I GET THE REGEX WORKING
+        Assert.assertEquals(6, parser.getUniqueItemsCount().get("milk"), 0.0001);
+        Assert.assertEquals(6, parser.getUniqueItemsCount().get("bread"), 0.0001);
+        Assert.assertEquals(8, parser.getUniqueItemsCount().get("cookies"), 0.0001);
+        Assert.assertEquals(4, parser.getUniqueItemsCount().get("apples"), 0.0001);
     }
 
 }

@@ -12,6 +12,8 @@ public class JerkSON_Parser {
     private ArrayList<Groceries> groceryList = new ArrayList<Groceries>();
     private String[] objectArray;
     private Integer errorCount;
+    private HashMap<String, Integer> uniqueItemsCount = new HashMap<>();
+
 
     public JerkSON_Parser(){
         inputString = textReader.getTextAsString();
@@ -30,7 +32,8 @@ public class JerkSON_Parser {
             Matcher m = p.matcher(objectString);
             // store it in the groceryList
             while (m.find()) {
-                groceryList.add(new Groceries(m.group(1), m.group(2), m.group(3), m.group(4)));
+                // REPLACE THE .toLowerCase WITH REGEX FUNCTIONS TO RETURN IN THE PROPER CASE IN THE FIRST PLACE
+                groceryList.add(new Groceries(m.group(1).toLowerCase(), m.group(2).toLowerCase(), m.group(3).toLowerCase(), m.group(4).toLowerCase()));
             }
         }
         return groceryList;
@@ -41,7 +44,13 @@ public class JerkSON_Parser {
         return errorCount;
     }
 
-
+    public HashMap<String, Integer> countUniqueItems(){
+        for (Groceries item : groceryList){
+            if (!uniqueItemsCount.keySet().contains(item.getName())) uniqueItemsCount.put(item.getName(), 1);
+            else uniqueItemsCount.replace(item.getName(),uniqueItemsCount.get(item.getName()) +1);
+        }
+        return uniqueItemsCount;
+    }
 
     public StringBuilder getOutputString() {
         return outputString;
@@ -57,5 +66,9 @@ public class JerkSON_Parser {
 
     public String[] getObjectArray(){
         return objectArray;
+    }
+
+    public HashMap<String, Integer> getUniqueItemsCount() {
+        return uniqueItemsCount;
     }
 }
