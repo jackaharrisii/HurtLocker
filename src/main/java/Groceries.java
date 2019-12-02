@@ -12,4 +12,19 @@ public class Groceries {
         this.expiration = expiration;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getExpiration() {
+        return expiration;
+    }
 }

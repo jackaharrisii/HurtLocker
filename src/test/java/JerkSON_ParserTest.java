@@ -14,6 +14,8 @@ public class JerkSON_ParserTest {
     @Before
     public void setUp() throws Exception {
         parser = new JerkSON_Parser();
+        parser.createObjectArray();
+        parser.createAndReturnGroceryList();
     }
 
     @After
@@ -22,34 +24,6 @@ public class JerkSON_ParserTest {
 
     @Test
     public void createObjectArrayTest() {
-//        ArrayList<String> expected = new ArrayList<>();
-//        expected.add("Milk");
-//        expected.add("BreaD");
-//        expected.add("BrEAD");
-//        expected.add("MiLK");
-//        expected.add("Cookies");
-//        expected.add("CoOkieS");
-//        expected.add("COokIes");
-//        expected.add("COOkieS");
-//        expected.add("MilK");
-//        expected.add("MilK");
-//        expected.add("apPles");
-//        expected.add("apPles");
-//        expected.add("BrEAD");
-//        expected.add("Milk");
-//        expected.add("BreaD");
-//        expected.add("BrEAD");
-//        expected.add("MiLK");
-//        expected.add("Cookies");
-//        expected.add("CoOkieS");
-//        expected.add("COokIes");
-//        expected.add("COOkieS");
-//        expected.add("MilK");
-//        expected.add("MilK");
-//        expected.add("apPles");
-//        expected.add("apPles");
-//        expected.add("BrEAD");
-//        parser.createObjectList();
         String[] expected = new String[]{
             "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016",
             "naME:BreaD;price:1.23;type:Food;expiration:1/02/2016",
@@ -80,21 +54,27 @@ public class JerkSON_ParserTest {
             "NAMe:BrEAD;price:1.23;type:Food;expiration:1/25/2016",
             "naMe:;price:3.23;type:Food^expiration:1/04/2016"
         };
-        parser.createObjectArray();
         Assert.assertEquals(expected, parser.getObjectArray());
+        Assert.assertEquals(28, parser.getObjectArray().length);
     }
 
     @Test
-    public void testGroupingOnObjectTest(){
-        String expected = "Name is Milk\nPrice is 3.23";
-        Assert.assertEquals(expected,parser.tryGroupingOnObject());
+    public void testCreateAndReturnGroceryList(){
+        Assert.assertEquals(24, parser.getGroceryList().size());
+        Assert.assertEquals("Milk", parser.getGroceryList().get(0).getName());
+        Assert.assertEquals("3.23", parser.getGroceryList().get(0).getPrice());
+        Assert.assertEquals("Food", parser.getGroceryList().get(0).getType());
+        Assert.assertEquals("1/25/2016", parser.getGroceryList().get(0).getExpiration());
+
+        Assert.assertEquals("BrEAD", parser.getGroceryList().get(parser.getGroceryList().size()-1).getName());
+        Assert.assertEquals("1.23", parser.getGroceryList().get(parser.getGroceryList().size()-1).getPrice());
+        Assert.assertEquals("Food", parser.getGroceryList().get(parser.getGroceryList().size()-1).getType());
+        Assert.assertEquals("1/25/2016", parser.getGroceryList().get(parser.getGroceryList().size()-1).getExpiration());
     }
 
     @Test
-    public void countAnObject() {
+    public void countErrorsTest(){
+        Assert.assertEquals(4, parser.countErrors());
     }
 
-    @Test
-    public void countAllObjects() {
-    }
 }

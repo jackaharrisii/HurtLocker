@@ -5,42 +5,40 @@ import java.util.regex.Pattern;
 
 public class JerkSON_Parser {
 
+    private ResultsPrinter resultsPrinter = new ResultsPrinter();
     private TextReader textReader = new TextReader();
     private StringBuilder outputString = new StringBuilder();
     private String inputString;
-    private ArrayList<Groceries> objectList;
+    private ArrayList<Groceries> groceryList = new ArrayList<Groceries>();
     private String[] objectArray;
+    private Integer errorCount;
 
     public JerkSON_Parser(){
         inputString = textReader.getTextAsString();
     }
 
     public void createObjectArray(){
-//        Pattern object = Pattern.compile("([Nn][Aa][Mm][Ee]:[a-zA-Z]*[:^%*!@])");
-//        Matcher matcher = object.matcher(inputString);
-//        while (matcher.find()){
-//            objectList.add(matcher.group(1));
-//        }
-        objectArray = inputString.split("##");   // FIGURE OUT HOW TO DO THIS WITH JUST REGEX
+        objectArray = Pattern.compile("##").split(inputString);
     }
 
-    public String tryGroupingOnObject(){
+    public ArrayList<Groceries> createAndReturnGroceryList(){
         createObjectArray();
-        String output = "";
-        String patternString = "[Nn][Aa][Mm][Ee]:([a-zA-Z]*);[Pp][Rr][Ii][Cc][Ee]:([0-9]+\\.[0-9]+)";
-        Pattern p = Pattern.compile(patternString);
-        Matcher m = p.matcher(objectArray[0]);
-        while(m.find()){
-            output += "Name is " + m.group(1);
-            output += "\nPrice is " + m.group(2);
+        for (String objectString : objectArray){
+            //create a grocery object
+            String patternString = "(?i)name:([a-zA-Z0-9]+);(?i)price:([0-9]+\\.[0-9]+).(?i)type.([a-zA-Z]+).(?i)expiration.([0-9]+/[0-9]+/[0-9]+)";
+            Pattern p = Pattern.compile(patternString);
+            Matcher m = p.matcher(objectString);
+            // store it in the groceryList
+            while (m.find()) {
+                groceryList.add(new Groceries(m.group(1), m.group(2), m.group(3), m.group(4)));
+            }
         }
-        return output;
+        return groceryList;
     }
 
-    public void createObjectList(){
-//        for(String )
-
-
+    public int countErrors(){
+        errorCount = objectArray.length - groceryList.size();
+        return errorCount;
     }
 
 
@@ -53,8 +51,8 @@ public class JerkSON_Parser {
         return inputString;
     }
 
-    public ArrayList<Groceries> getObjectList() {
-        return objectList;
+    public ArrayList<Groceries> getGroceryList() {
+        return groceryList;
     }
 
     public String[] getObjectArray(){
