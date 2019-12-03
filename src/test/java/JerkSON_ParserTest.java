@@ -67,6 +67,9 @@ public class JerkSON_ParserTest {
         Assert.assertEquals("food", parser.getGroceryList().get(0).getType());
         Assert.assertEquals("1/25/2016", parser.getGroceryList().get(0).getExpiration());
 
+        // THIS IS THE WEIRD COOKIE SPELLING WITH THE ZERO INSTEAD OF THE O
+        Assert.assertEquals("cookies", parser.getGroceryList().get(17).getName());
+
         Assert.assertEquals("bread", parser.getGroceryList().get(parser.getGroceryList().size()-1).getName());
         Assert.assertEquals("1.23", parser.getGroceryList().get(parser.getGroceryList().size()-1).getPrice());
         Assert.assertEquals("food", parser.getGroceryList().get(parser.getGroceryList().size()-1).getType());

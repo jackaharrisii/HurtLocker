@@ -6,6 +6,7 @@ public class Groceries {
     private String price;
     private String type;
     private String expiration;
+    private Integer multiples;
 
     public Groceries(String name, String price, String type, String expiration) {
         this.name = name;
@@ -14,6 +15,13 @@ public class Groceries {
         this.expiration = expiration;
     }
 
+    public Groceries(String name, String price, String type, String expiration, Integer multiples) {
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        this.expiration = expiration;
+        this.multiples = multiples;
+    }
     public String getName() {
         return name;
     }
@@ -28,6 +36,14 @@ public class Groceries {
 
     public String getExpiration() {
         return expiration;
+    }
+
+    public Integer getMultiples() {
+        return multiples;
+    }
+
+    public void setMultiples(Integer multiples) {
+        this.multiples = multiples;
     }
 
 }

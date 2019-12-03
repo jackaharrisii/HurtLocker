@@ -33,7 +33,10 @@ public class JerkSON_Parser {
             // store it in the groceryList
             while (m.find()) {
                 // REPLACE THE .toLowerCase WITH REGEX FUNCTIONS TO RETURN IN THE PROPER CASE IN THE FIRST PLACE
-                groceryList.add(new Groceries(m.group(1).toLowerCase(), m.group(2).toLowerCase(), m.group(3).toLowerCase(), m.group(4).toLowerCase()));
+                // ALSO THE .replaceAll WITH SOMETHING ELSE
+                // OR MAYBE THESE ARE NOT STRING UTILITIES, BECAUSE THEY'RE ACTING ON PATTERNS INSTEAD OF STRINGS.....?
+                groceryList.add(new Groceries(m.group(1).replaceAll("0", "o").replaceAll("@", "a").replaceAll("1", "i").toLowerCase(),
+                        m.group(2).toLowerCase(), m.group(3).toLowerCase(), m.group(4).toLowerCase()));
             }
         }
         return groceryList;
@@ -45,6 +48,7 @@ public class JerkSON_Parser {
     }
 
     public HashMap<String, Integer> countUniqueItems(){
+        // COME BACK TO THIS TO DIFFERENTIATE BETWEEN VARYING PRICES - Groceries OBJECT IS ALREADY BUILT, JUST NEED TO IMPLEMENT
         for (Groceries item : groceryList){
             if (!uniqueItemsCount.keySet().contains(item.getName())) uniqueItemsCount.put(item.getName(), 1);
             else uniqueItemsCount.replace(item.getName(),uniqueItemsCount.get(item.getName()) +1);
@@ -68,7 +72,7 @@ public class JerkSON_Parser {
         return objectArray;
     }
 
-    public HashMap<String, Integer> getUniqueItemsCount() {
+    public  HashMap<String, Integer> getUniqueItemsCount() {
         return uniqueItemsCount;
     }
 }
