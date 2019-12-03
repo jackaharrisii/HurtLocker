@@ -10,6 +10,7 @@ public class JerkSON_Parser {
     private StringBuilder outputString = new StringBuilder();
     private String inputString;
     private ArrayList<Groceries> groceryList = new ArrayList<Groceries>();
+    private ArrayList<Groceries> groceryListWithMultiples = new ArrayList<>();
     private String[] objectArray;
     private Integer errorCount;
     private HashMap<String, Integer> uniqueItemsCount = new HashMap<>();
@@ -56,6 +57,19 @@ public class JerkSON_Parser {
         return uniqueItemsCount;
     }
 
+    public ArrayList<Groceries> generateGroceryListWithMultiples(){
+        for (Groceries item : groceryList) {
+            for (Groceries uniqueItem : groceryListWithMultiples){
+                if (item.getName().equals(uniqueItem.getName()) && item.getPrice().equals(uniqueItem.getPrice())) {
+                    uniqueItem.setMultiples(uniqueItem.getMultiples() + 1);
+                } else {
+                    groceryListWithMultiples.add(new Groceries(item.getName(), item.getPrice(),item.getType(), item.getExpiration(), 1));
+                }
+            }
+        }
+        return groceryListWithMultiples;
+    }
+
     public StringBuilder getOutputString() {
         return outputString;
     }
@@ -74,5 +88,9 @@ public class JerkSON_Parser {
 
     public  HashMap<String, Integer> getUniqueItemsCount() {
         return uniqueItemsCount;
+    }
+
+    public ArrayList<Groceries> getGroceryListWithMultiples() {
+        return groceryListWithMultiples;
     }
 }

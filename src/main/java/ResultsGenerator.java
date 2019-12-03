@@ -13,6 +13,8 @@ public class ResultsGenerator {
     public void run(){
         parser.createObjectArray();
         System.out.println(parser.createAndReturnGroceryList().toString());
+        parser.generateGroceryListWithMultiples();
+        System.out.println(parser.getGroceryListWithMultiples().toString());  // THIS ONE IS RETURNING A BLANK ARRAYLIST
         System.out.println("Errors: " + parser.countErrors());
     }
 

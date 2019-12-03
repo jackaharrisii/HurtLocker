@@ -48,8 +48,13 @@ public class Groceries {
 
     @Override
     public String toString(){
-        return String.format("Name: %s\nPrice: %s\nType: %s\nExpiration: %s\n********************\n",
-                this.getName(), this.getPrice(), this.getType(), this.getExpiration());
+        if (this.getMultiples() == null){
+            return String.format("\nName: %s\nPrice: %s\nType: %s\nExpiration: %s\n********************\n",
+            this.getName(), this.getPrice(), this.getType(), this.getExpiration());
+        } else {
+            return String.format("\nName: %s\nPrice: %s\nType: %s\nExpiration: %s\nMultiples: %s\n********************\n",
+            this.getName(), this.getPrice(), this.getType(), this.getExpiration(), this.getMultiples());
+        }
     }
 
 }
