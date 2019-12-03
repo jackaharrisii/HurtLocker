@@ -46,4 +46,10 @@ public class Groceries {
         this.multiples = multiples;
     }
 
+    @Override
+    public String toString(){
+        return String.format("Name: %s\nPrice: %s\nType: %s\nExpiration: %s\n********************\n",
+                this.getName(), this.getPrice(), this.getType(), this.getExpiration());
+    }
+
 }

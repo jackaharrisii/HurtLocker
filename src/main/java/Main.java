@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
 //        String output = (new Main()).readRawDataToString();
 //        System.out.println(output);
-        ResultsPrinter.printHeader("Milk", 6);   // CLEARLY THE WRONG ANSWER HERE
-
+        ResultsGenerator generator = new ResultsGenerator();
+        generator.run();
     }
 }
