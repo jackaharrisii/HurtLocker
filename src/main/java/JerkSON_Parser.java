@@ -14,6 +14,10 @@ public class JerkSON_Parser {
     private String[] objectArray;
     private Integer errorCount;
     private HashMap<String, Integer> uniqueItemsCount = new HashMap<>();
+    private HashMap<String, Integer> milkCount = new HashMap<>();
+    private HashMap<String, Integer> breadCount = new HashMap<>();
+    private HashMap<String, Integer> cookieCount = new HashMap<>();
+    private HashMap<String, Integer> appleCount = new HashMap<>();
 
 
     public JerkSON_Parser(){
@@ -48,27 +52,78 @@ public class JerkSON_Parser {
         return errorCount;
     }
 
-    public HashMap<String, Integer> countUniqueItems(){
-        // COME BACK TO THIS TO DIFFERENTIATE BETWEEN VARYING PRICES - Groceries OBJECT IS ALREADY BUILT, JUST NEED TO IMPLEMENT
-        for (Groceries item : groceryList){
-            if (!uniqueItemsCount.keySet().contains(item.getName())) uniqueItemsCount.put(item.getName(), 1);
-            else uniqueItemsCount.replace(item.getName(),uniqueItemsCount.get(item.getName()) +1);
-        }
-        return uniqueItemsCount;
+//    public HashMap<String, Integer> countUniqueItems(){
+//        // COME BACK TO THIS TO DIFFERENTIATE BETWEEN VARYING PRICES - Groceries OBJECT IS ALREADY BUILT, JUST NEED TO IMPLEMENT
+//        for (Groceries item : groceryList){
+//            if (!uniqueItemsCount.keySet().contains(item.getName())) uniqueItemsCount.put(item.getName(), 1);
+//            else uniqueItemsCount.replace(item.getName(),uniqueItemsCount.get(item.getName()) +1);
+//        }
+//        return uniqueItemsCount;
+//    }
+
+    public void countAllTheThings(){
+        countMilk();
+        countBread();
+        countCookies();
+        countApples();
     }
 
-    public ArrayList<Groceries> generateGroceryListWithMultiples(){
-        for (Groceries item : groceryList) {
-            for (Groceries uniqueItem : groceryListWithMultiples){
-                if (item.getName().equals(uniqueItem.getName()) && item.getPrice().equals(uniqueItem.getPrice())) {
-                    uniqueItem.setMultiples(uniqueItem.getMultiples() + 1);
-                } else {
-                    groceryListWithMultiples.add(new Groceries(item.getName(), item.getPrice(),item.getType(), item.getExpiration(), 1));
+    public void countMilk(){
+        for (Groceries item : groceryList){
+            if (item.getName().equals("milk")){
+                if (!milkCount.keySet().contains(item.getPrice()))milkCount.put(item.getPrice(), 1);
+                else {
+                    milkCount.replace(item.getPrice(), (milkCount.get(item.getPrice()) + 1));
                 }
             }
         }
-        return groceryListWithMultiples;
     }
+
+    public void countBread(){
+        for (Groceries item : groceryList){
+            if (item.getName().equals("bread")){
+                if (!breadCount.keySet().contains(item.getPrice()))breadCount.put(item.getPrice(), 1);
+                else {
+                    breadCount.replace(item.getPrice(), (breadCount.get(item.getPrice()) + 1));
+                }
+            }
+        }
+    }
+
+    public void countCookies(){
+        for (Groceries item : groceryList){
+            if (item.getName().equals("cookies")){
+                if (!cookieCount.keySet().contains(item.getPrice()))cookieCount.put(item.getPrice(), 1);
+                else {
+                    cookieCount.replace(item.getPrice(), (cookieCount.get(item.getPrice()) + 1));
+                }
+            }
+        }
+    }
+
+    public void countApples(){
+        for (Groceries item : groceryList){
+            if (item.getName().equals("apples")){
+                if (!appleCount.keySet().contains(item.getPrice()))appleCount.put(item.getPrice(), 1);
+                else {
+                    appleCount.replace(item.getPrice(), (appleCount.get(item.getPrice()) + 1));
+                }
+            }
+        }
+    }
+
+//    public ArrayList<Groceries> generateGroceryListWithMultiples(){
+//        for (Groceries item : groceryList) {
+//            int count = 0;
+//            for (Groceries searchItem : groceryList){
+//                if (item.getName().equals(searchItem.getName()) && item.getPrice().equals(searchItem.getPrice())){
+//                    count++;
+//                }
+//            }
+//
+//            }
+//        return groceryListWithMultiples;
+//    }
 
     public StringBuilder getOutputString() {
         return outputString;
@@ -92,5 +147,21 @@ public class JerkSON_Parser {
 
     public ArrayList<Groceries> getGroceryListWithMultiples() {
         return groceryListWithMultiples;
+    }
+
+    public HashMap<String, Integer> getMilkCount() {
+        return milkCount;
+    }
+
+    public HashMap<String, Integer> getBreadCount() {
+        return breadCount;
+    }
+
+    public HashMap<String, Integer> getCookieCount() {
+        return cookieCount;
+    }
+
+    public HashMap<String, Integer> getAppleCount() {
+        return appleCount;
     }
 }

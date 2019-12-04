@@ -16,7 +16,7 @@ public class JerkSON_ParserTest {
         parser = new JerkSON_Parser();
         parser.createObjectArray();
         parser.createAndReturnGroceryList();
-        parser.countUniqueItems();
+//        parser.countUniqueItems();
     }
 
     @After
